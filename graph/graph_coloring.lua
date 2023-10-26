@@ -1,25 +1,34 @@
-function graph_coloring(graph)
-    local colors = {}
-    for node, neighbors in pairs(graph) do
-        local available_colors = {true, true, true, true}  -- Assume we have at most 4 colors
-        for _, neighbor in ipairs(neighbors) do
-            local color = colors[neighbor]
+local GraphColoring = {}
+GraphColoring.__index = GraphColoring
+
+function GraphColoring.new(graph)
+    local self = setmetatable({}, GraphColoring)
+    self.graph = graph
+    self.colors = {}
+    return self
+end
+
+function GraphColoring:colorGraph()
+    for node, neighbors in pairs(self.graph) do
+        local availableColors = {true, true, true, true}
+        for _ , neighbor in ipairs(neighbors) do
+            local color = self.colors[neighbor]
             if color then
-                available_colors[color] = false
+                availableColors[color] = false
             end
         end
-        for color, is_available in ipairs(available_colors) do
-            if is_available then
-                colors[node] = color
+        for color, isAvailable in ipairs(availableColors) do
+            if isAvailable then
+                self.colors[node] = color
                 break
             end
         end
     end
-    return colors
+    return self.colors
 end
 
-function test_graph_coloring()
-    local test_cases = {
+local function testGraphColoring()
+    local testCases = {
         {
             graph = {
                 A = {'B', 'C'},
@@ -37,15 +46,15 @@ function test_graph_coloring()
                 E = {'C', 'D'},
             },
         },
-        -- Add more test cases here
     }
     
-    for i, test_case in ipairs(test_cases) do
-        local colors = graph_coloring(test_case.graph)
+    for i, testCase in ipairs(testCases) do
+        local graphColoring = GraphColoring.new(testCase.graph)
+        local colors = graphColoring:colorGraph()
         local passed = true
-        for node, neighbors in pairs(test_case.graph) do
+        for node, neighbors in pairs(testCase.graph) do
             local color = colors[node]
-            for _, neighbor in ipairs(neighbors) do
+            for _ , neighbor in ipairs(neighbors) do
                 if color == colors[neighbor] then
                     passed = false
                     break
@@ -60,4 +69,4 @@ function test_graph_coloring()
 end
 
 -- Run tests
-test_graph_coloring()
+testGraphColoring()

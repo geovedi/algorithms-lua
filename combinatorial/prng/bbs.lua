@@ -1,17 +1,20 @@
--- Blum Blum Shub generator implementation
-function bbs(seed, p, q)
-    local M = p * q
-    local state = seed % M
+local BlumBlumShubGenerator = {}
+BlumBlumShubGenerator.__index = BlumBlumShubGenerator
 
-    return function()
-        state = (state * state) % M
-        return state
-    end
+function BlumBlumShubGenerator.new(seed, p, q)
+    local self = setmetatable({}, BlumBlumShubGenerator)
+    self.M = p * q
+    self.state = seed % self.M
+    return self
 end
 
--- Test function
-function test_bbs()
-    local test_cases = {
+function BlumBlumShubGenerator:next()
+    self.state = (self.state * self.state) % self.M
+    return self.state
+end
+
+local function testBBS()
+    local testCases = {
         {seed = 7, p = 11, q = 19, expected = {7*7 % (11*19), (7*7 % (11*19))^2 % (11*19), ((7*7 % (11*19))^2 % (11*19))^2 % (11*19)}},
         {seed = 3, p = 13, q = 23, expected = {3*3 % (13*23), (3*3 % (13*23))^2 % (13*23), ((3*3 % (13*23))^2 % (13*23))^2 % (13*23)}},
         {seed = 5, p = 17, q = 31, expected = {5*5 % (17*31), (5*5 % (17*31))^2 % (17*31), ((5*5 % (17*31))^2 % (17*31))^2 % (17*31)}},
@@ -19,12 +22,12 @@ function test_bbs()
         {seed = 6, p = 47, q = 53, expected = {6*6 % (47*53), (6*6 % (47*53))^2 % (47*53), ((6*6 % (47*53))^2 % (47*53))^2 % (47*53)}},
     }
     
-    for i, test_case in ipairs(test_cases) do
-        local generator = bbs(test_case.seed, test_case.p, test_case.q)
+    for i, testCase in ipairs(testCases) do
+        local generator = BlumBlumShubGenerator.new(testCase.seed, testCase.p, testCase.q)
         local passed = true
-        for j, expected_value in ipairs(test_case.expected) do
-            local value = generator()
-            if value ~= expected_value then
+        for j, expectedValue in ipairs(testCase.expected) do
+            local value = generator:next()
+            if value ~= expectedValue then
                 passed = false
                 break
             end
@@ -33,5 +36,4 @@ function test_bbs()
     end
 end
 
--- Run tests
-test_bbs()
+testBBS()

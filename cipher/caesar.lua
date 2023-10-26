@@ -1,13 +1,23 @@
--- Function to apply the Caesar cipher
-function caesar(key, text, operation)
-    local offset = string.byte('A')
-    local alphabetSize = 26
+local CaesarCipher = {}
+CaesarCipher.__index = CaesarCipher
+
+function CaesarCipher.new(key)
+    local self = setmetatable({}, CaesarCipher)
+    self.key = key
+    self.alphabetSize = 26
+    return self
+end
+
+function CaesarCipher:encrypt(text)
+    return self:process(text, self.key)
+end
+
+function CaesarCipher:decrypt(text)
+    return self:process(text, -self.key)
+end
+
+function CaesarCipher:process(text, key)
     local result = {}
-
-    if operation == 'd' then
-        key = -key
-    end
-
     for i = 1, #text do
         local char = text:sub(i, i)
         local isUpperCase = char:match("[%u]")
@@ -15,47 +25,42 @@ function caesar(key, text, operation)
 
         if isUpperCase or isLowerCase then
             local base = isUpperCase and string.byte('A') or string.byte('a')
-            local index = (string.byte(char) - base + key) % alphabetSize
-
+            local index = (string.byte(char) - base + key) % self.alphabetSize
             if index < 0 then
-                index = index + alphabetSize
+                index = index + self.alphabetSize
             end
-
-            local encryptedChar = string.char(base + index)
-            result[#result + 1] = encryptedChar
+            local processedChar = string.char(base + index)
+            result[#result + 1] = processedChar
         else
             result[#result + 1] = char
         end
     end
-
     return table.concat(result)
 end
 
--- Function to test the Caesar cipher
-function test_caesar()
-    local test_cases = {
-        {key = 1, text = "Hello World!", encrypted = "Ifmmp Xpsme!", decrypted = "Hello World!"},
-        {key = 3, text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", encrypted = "DEFGHIJKLMNOPQRSTUVWXYZABC", decrypted = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"},
-        {key = 5, text = "The Quick Brown Fox", encrypted = "Ymj Vznhp Gwtbs Ktc", decrypted = "The Quick Brown Fox"},
-        {key = 13, text = "Caesar Cipher", encrypted = "Pnrfne Pvcure", decrypted = "Caesar Cipher"},
+local function testCaesar()
+    local testCases = {
+        {key = 1, text = "Hello World!", encrypted = "Ifmmp Xpsme!"},
+        {key = 3, text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", encrypted = "DEFGHIJKLMNOPQRSTUVWXYZABC"},
+        {key = 5, text = "The Quick Brown Fox", encrypted = "Ymj Vznhp Gwtbs Ktc"},
+        {key = 13, text = "Caesar Cipher", encrypted = "Pnrfne Pvcure"},
     }
 
-    for i, test_case in ipairs(test_cases) do
-        local key = test_case.key
-        local text = test_case.text
-        local encrypted_text = caesar(key, text, 'e')
-        local decrypted_text = caesar(key, encrypted_text, 'd')
+    for i, testCase in ipairs(testCases) do
+        local caesarCipher = CaesarCipher.new(testCase.key)
+        local encryptedText = caesarCipher:encrypt(testCase.text)
+        local decryptedText = caesarCipher:decrypt(encryptedText)
 
         print("Test Case " .. i .. ":")
-        print("  Key: " .. key)
-        print("  Original Text: " .. text)
-        print("  Encrypted Text: " .. encrypted_text)
-        print("  Decrypted Text: " .. decrypted_text)
+        print("  Key: " .. testCase.key)
+        print("  Original Text: " .. testCase.text)
+        print("  Encrypted Text: " .. encryptedText)
+        print("  Decrypted Text: " .. decryptedText)
 
-        local encryption_success = encrypted_text == test_case.encrypted
-        local decryption_success = decrypted_text == test_case.decrypted
+        local encryptionSuccess = encryptedText == testCase.encrypted
+        local decryptionSuccess = decryptedText == testCase.text
 
-        if encryption_success and decryption_success then
+        if encryptionSuccess and decryptionSuccess then
             print("  Result: PASSED\n")
         else
             print("  Result: FAILED\n")
@@ -64,4 +69,4 @@ function test_caesar()
 end
 
 -- Run the Caesar cipher tests
-test_caesar()
+testCaesar()

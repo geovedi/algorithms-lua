@@ -67,9 +67,8 @@ function BinaryTree:deleteNode(value)
                 return root.left
             end
 
-            local temp = findMin(root.right)
-            root.data = temp.data
-            root.right = delete(root.right, temp.data)
+            root.data = findMin(root.right).data
+            root.right = delete(root.right, root.data)
         end
 
         return root
@@ -120,21 +119,21 @@ function BinaryTree:countNodes()
 end
 
 -- Function to create a binary tree and perform operations
-local function test_binary_tree()
+local function testBinaryTree()
     local tree = BinaryTree.new()
 
     -- Define test cases with input values and expected results
-    local test_cases = {
-        {input = {50, 30, 70, 20, 40, 60, 80}, expected_in_order = "20 40 50 60 70 80", valueToDelete = 30},
-        {input = {45, 55, 15, 35, 90}, expected_in_order = "15 35 55 90", valueToDelete = 45},
-        {input = {50, 30, 70, 20, 40, 60, 80}, expected_in_order = "20 30 40 50 60 80", valueToDelete = 70},
-        {input = {45, 55, 15, 35, 90}, expected_in_order = "35 45 55 90", valueToDelete = 15},
+    local testCases = {
+        {input = {50, 30, 70, 20, 40, 60, 80}, expectedInOrder = "20 40 50 60 70 80", valueToDelete = 30},
+        {input = {45, 55, 15, 35, 90}, expectedInOrder = "15 35 55 90", valueToDelete = 45},
+        {input = {50, 30, 70, 20, 40, 60, 80}, expectedInOrder = "20 30 40 50 60 80", valueToDelete = 70},
+        {input = {45, 55, 15, 35, 90}, expectedInOrder = "35 45 55 90", valueToDelete = 15},
         -- Add more test cases here
     }
 
-    for _, test_case in ipairs(test_cases) do
+    for _ , testCase in ipairs(testCases) do
         tree.root = nil -- Reset the tree for each test case
-        for _, value in ipairs(test_case.input) do
+        for _ , value in ipairs(testCase.input) do
             tree:insert(value)
         end
 
@@ -144,7 +143,7 @@ local function test_binary_tree()
         io.write("\n")
 
         -- Delete the specified value
-        tree:deleteNode(test_case.valueToDelete)
+        tree:deleteNode(testCase.valueToDelete)
 
         -- Display the tree after deletion
         io.write("In-order traversal of the tree after deletion: ")
@@ -161,9 +160,9 @@ local function test_binary_tree()
         end
         inorderTraversal(tree.root)
 
-        -- Trim leading and trailing whitespace from both result and expected_in_order
+        -- Trim leading and trailing whitespace from both result and expectedInOrder
         result = result:match("^%s*(.-)%s*$")
-        local expected = test_case.expected_in_order:match("^%s*(.-)%s*$")
+        local expected = testCase.expectedInOrder:match("^%s*(.-)%s*$")
 
         print("  Result: " .. result)
         print("  Expected: " .. expected)
@@ -178,5 +177,4 @@ local function test_binary_tree()
 end
 
 -- Run the binary tree creation and test
-test_binary_tree()
-
+testBinaryTree()

@@ -1,7 +1,15 @@
--- Function to create the rail matrix
-function create_rail_matrix(text, key)
+local RailFenceCipher = {}
+RailFenceCipher.__index = RailFenceCipher
+
+function RailFenceCipher.new(key)
+    local self = setmetatable({}, RailFenceCipher)
+    self.key = key
+    return self
+end
+
+function RailFenceCipher:createRailMatrix(text)
     local rail = {}
-    for i = 1, key do
+    for i = 1, self.key do
         rail[i] = {}
     end
 
@@ -11,7 +19,7 @@ function create_rail_matrix(text, key)
     for i = 1, #text do
         rail[row][col] = true
         
-        if row == 1 or row == key then
+        if row == 1 or row == self.key then
             dirDown = not dirDown
         end
 
@@ -27,12 +35,11 @@ function create_rail_matrix(text, key)
     return rail
 end
 
--- Function to encrypt a message using Rail Fence cipher
-function encrypt_rail_fence(text, key)
-    local rail = create_rail_matrix(text, key)
+function RailFenceCipher:encrypt(text)
+    local rail = self:createRailMatrix(text)
     local result = ""
 
-    for i = 1, key do
+    for i = 1, self.key do
         for j = 1, #text do
             if rail[i][j] then
                 result = result .. text:sub(j, j)
@@ -43,13 +50,12 @@ function encrypt_rail_fence(text, key)
     return result
 end
 
--- Function to decrypt a message encrypted with Rail Fence cipher
-function decrypt_rail_fence(cipher, key)
-    local rail = create_rail_matrix(cipher, key)
+function RailFenceCipher:decrypt(cipher)
+    local rail = self:createRailMatrix(cipher)
     local result = ""
     local index = 1
 
-    for i = 1, key do
+    for i = 1, self.key do
         for j = 1, #cipher do
             if rail[i][j] then
                 rail[i][j] = cipher:sub(index, index)
@@ -64,7 +70,7 @@ function decrypt_rail_fence(cipher, key)
     for i = 1, #cipher do
         result = result .. rail[row][col]
 
-        if row == 1 or row == key then
+        if row == 1 or row == self.key then
             dirDown = not dirDown
         end
 
@@ -80,29 +86,28 @@ function decrypt_rail_fence(cipher, key)
     return result
 end
 
--- Function to test the Rail Fence cipher
-function test_rail_fence()
-    local test_cases = {
+local function testRailFence()
+    local testCases = {
         {text = "Hello World!", key = 2},
-        {text = "OpenAI is amazing!", key = 3},
-        {text = "Lua is fun!", key = 4},
+        {text = "Programming is fun!", key = 3},
+        {text = "Lua is amazing!", key = 4},
         {text = "Rail Fence Cipher", key = 5},
     }
 
-    for i, test_case in ipairs(test_cases) do
-        local text = test_case.text
-        local key = test_case.key
+    for i, testCase in ipairs(testCases) do
+        local cipher = RailFenceCipher.new(testCase.key)
 
-        local encrypted_text = encrypt_rail_fence(text, key)
-        local decrypted_text = decrypt_rail_fence(encrypted_text, key)
+        local text = testCase.text
+        local encryptedText = cipher:encrypt(text)
+        local decryptedText = cipher:decrypt(encryptedText)
 
         print("Test Case " .. i .. ":")
         print("  Original Text: " .. text)
-        print("  Key: " .. key)
-        print("  Encrypted Text: " .. encrypted_text)
-        print("  Decrypted Text: " .. decrypted_text)
+        print("  Key: " .. testCase.key)
+        print("  Encrypted Text: " .. encryptedText)
+        print("  Decrypted Text: " .. decryptedText)
 
-        local success = text == decrypted_text
+        local success = text == decryptedText
 
         if success then
             print("  Result: PASSED\n")
@@ -112,5 +117,4 @@ function test_rail_fence()
     end
 end
 
--- Run the Rail Fence cipher tests
-test_rail_fence()
+testRailFence()

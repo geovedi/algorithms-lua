@@ -2,6 +2,7 @@
 local TrieNode = {}
 TrieNode.__index = TrieNode
 
+-- Constructor for TrieNode
 function TrieNode.new()
     local self = setmetatable({}, TrieNode)
     self.children = {}
@@ -13,6 +14,7 @@ end
 local Trie = {}
 Trie.__index = Trie
 
+-- Constructor for Trie
 function Trie.new()
     local self = setmetatable({}, Trie)
     self.root = TrieNode.new()
@@ -46,45 +48,56 @@ function Trie:search(word)
 end
 
 -- Test function for Trie
-function test_trie()
+function testTrie()
     print("Running Trie Tests:")
-    
-    -- Test Case 1: Insert and search for words
-    local trie1 = Trie.new()
-    trie1:insert("apple")
-    trie1:insert("banana")
-    assert(trie1:search("apple"), "Test Case 1 FAILED")
-    assert(trie1:search("banana"), "Test Case 1 FAILED")
-    assert(not trie1:search("cherry"), "Test Case 1 FAILED")
-    print("Test Case 1 PASSED")
-    
-    -- Test Case 2: Insert and search for prefixes
-    local trie2 = Trie.new()
-    trie2:insert("cat")
-    trie2:insert("category")
-    assert(trie2:search("cat"), "Test Case 2 FAILED")
-    assert(trie2:search("category"), "Test Case 2 FAILED")
-    assert(not trie2:search("car"), "Test Case 2 FAILED")
-    print("Test Case 2 PASSED")
-    
-    -- Test Case 3: Insert and search for empty word
-    local trie3 = Trie.new()
-    trie3:insert("")
-    assert(trie3:search(""), "Test Case 3 FAILED")
-    assert(not trie3:search("word"), "Test Case 3 FAILED")
-    print("Test Case 3 PASSED")
-    
-    -- Test Case 4: Insert and search for overlapping words
-    local trie4 = Trie.new()
-    trie4:insert("apple")
-    trie4:insert("app")
-    assert(trie4:search("apple"), "Test Case 4 FAILED")
-    assert(trie4:search("app"), "Test Case 4 FAILED")
-    assert(not trie4:search("ap"), "Test Case 4 FAILED")
-    print("Test Case 4 PASSED")
-    
+    testInsertSearchWords()
+    testInsertSearchPrefixes()
+    testInsertSearchEmptyWord()
+    testInsertSearchOverlappingWords()
     print("All Trie Tests PASSED")
 end
 
+-- Test Case 1: Insert and search for words
+function testInsertSearchWords()
+    local trie = Trie.new()
+    trie:insert("apple")
+    trie:insert("banana")
+    assert(trie:search("apple"), "Test Case 1 FAILED")
+    assert(trie:search("banana"), "Test Case 1 FAILED")
+    assert(not trie:search("cherry"), "Test Case 1 FAILED")
+    print("Test Case 1 PASSED")
+end
+
+-- Test Case 2: Insert and search for prefixes
+function testInsertSearchPrefixes()
+    local trie = Trie.new()
+    trie:insert("cat")
+    trie:insert("category")
+    assert(trie:search("cat"), "Test Case 2 FAILED")
+    assert(trie:search("category"), "Test Case 2 FAILED")
+    assert(not trie:search("car"), "Test Case 2 FAILED")
+    print("Test Case 2 PASSED")
+end
+
+-- Test Case 3: Insert and search for empty word
+function testInsertSearchEmptyWord()
+    local trie = Trie.new()
+    trie:insert("")
+    assert(trie:search(""), "Test Case 3 FAILED")
+    assert(not trie:search("word"), "Test Case 3 FAILED")
+    print("Test Case 3 PASSED")
+end
+
+-- Test Case 4: Insert and search for overlapping words
+function testInsertSearchOverlappingWords()
+    local trie = Trie.new()
+    trie:insert("apple")
+    trie:insert("app")
+    assert(trie:search("apple"), "Test Case 4 FAILED")
+    assert(trie:search("app"), "Test Case 4 FAILED")
+    assert(not trie:search("ap"), "Test Case 4 FAILED")
+    print("Test Case 4 PASSED")
+end
+
 -- Run the Trie tests
-test_trie()
+testTrie()

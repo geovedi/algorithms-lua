@@ -1,143 +1,106 @@
--- Define the node structure
-local node = {
-    value = 0,
-    left = nil,
-    right = nil
-}
+local Node = {}
+Node.__index = Node
 
--- Function to insert a new node into the tree
-local function insert(new, root)
-    if new.value > root.value then
-        if root.right == nil then
-            root.right = new
-        else
-            insert(new, root.right)
-        end
-    elseif new.value < root.value then
-        if root.left == nil then
-            root.left = new
-        else
-            insert(new, root.left)
-        end
-    end
+function Node.new(value)
+  local self = setmetatable({}, Node)
+  self.value = value
+  self.left = nil
+  self.right = nil
+  return self
 end
 
--- Function for breadth-first traversal of the tree
-local function bfs_traverse(root, queue)
-    if root == nil then
-        return
-    end
+local BinaryTree = {}
+BinaryTree.__index = BinaryTree
 
-    table.insert(queue, root.value)
-
-    bfs_traverse(root.left, queue)
-    bfs_traverse(root.right, queue)
+function BinaryTree.new()
+  local self = setmetatable({}, BinaryTree)
+  self.root = nil
+  return self
 end
 
--- Function to create a binary tree with predefined values and test BFS traversal
-local function test_bfs()
-    -- Test Case 1: Balanced Binary Tree
-    local balancedTree = {
-        value = 5,
-        left = {
-            value = 3,
-            left = {
-                value = 1,
-                left = nil,
-                right = nil
-            },
-            right = {
-                value = 4,
-                left = nil,
-                right = nil
-            }
-        },
-        right = {
-            value = 8,
-            left = {
-                value = 7,
-                left = nil,
-                right = nil
-            },
-            right = {
-                value = 9,
-                left = nil,
-                right = nil
-            }
-        }
-    }
-
-    -- Test Case 2: Skewed Right Binary Tree
-    local skewedRightTree = {
-        value = 1,
-        left = nil,
-        right = {
-            value = 2,
-            left = nil,
-            right = {
-                value = 3,
-                left = nil,
-                right = {
-                    value = 4,
-                    left = nil,
-                    right = nil
-                }
-            }
-        }
-    }
-
-    -- Test Case 3: Skewed Left Binary Tree
-    local skewedLeftTree = {
-        value = 5,
-        left = {
-            value = 4,
-            left = {
-                value = 3,
-                left = {
-                    value = 2,
-                    left = {
-                        value = 1,
-                        left = nil,
-                        right = nil
-                    },
-                    right = nil
-                },
-                right = nil
-            },
-            right = nil
-        },
-        right = nil
-    }
-
-    local test_cases = {
-        {tree = balancedTree, description = "Balanced Binary Tree", expected = "5 -> 3 -> 1 -> 4 -> 8 -> 7 -> 9"},
-        {tree = skewedRightTree, description = "Skewed Right Binary Tree", expected = "1 -> 2 -> 3 -> 4"},
-        {tree = skewedLeftTree, description = "Skewed Left Binary Tree", expected = "5 -> 4 -> 3 -> 2 -> 1"}
-    }
-
-    for i, test_case in ipairs(test_cases) do
-        local tree = test_case.tree
-        local description = test_case.description
-        local expected = test_case.expected
-
-        local queue = {}
-
-        print("Test Case " .. i .. ": " .. description)
-        print("Elements in BFS order are:")
-        bfs_traverse(tree, queue)
-
-        local result = table.concat(queue, " -> ")
-
-        print(result .. "\n")
-
-        -- Check if the result matches the expected order
-        if result == expected then
-            print("Test PASSED\n")
-        else
-            print("Test FAILED\n")
-        end
-    end
+function BinaryTree:insert(value)
+  local newNode = Node.new(value)
+  if not self.root then
+    self.root = newNode
+  else
+    self:insertNode(self.root, newNode)
+  end
 end
 
--- Run the breadth-first traversal tests
-test_bfs()
+function BinaryTree:insertNode(root, newNode)
+  if newNode.value < root.value then
+    if not root.left then
+      root.left = newNode
+    else
+      self:insertNode(root.left, newNode)
+    end
+  else
+    if not root.right then
+      root.right = newNode
+    else
+      self:insertNode(root.right, newNode)
+    end
+  end
+end
+
+function BinaryTree:bfsTraverse()
+  local queue = {}
+  local result = {}
+  if not self.root then return result end
+  
+  table.insert(queue, self.root)
+  
+  while #queue > 0 do
+    local node = table.remove(queue, 1)
+    table.insert(result, node.value)
+    
+    if node.left then
+      table.insert(queue, node.left)
+    end
+    
+    if node.right then
+      table.insert(queue, node.right)
+    end
+  end
+  
+  return result
+end
+
+function testBFS()
+  local testCases = {
+    {
+      values = {5, 3, 8, 1, 4, 7, 9},
+      description = "Balanced Binary Tree",
+      expected = "5 -> 3 -> 8 -> 1 -> 4 -> 7 -> 9"
+    },
+    {
+      values = {1, 2, 3, 4},
+      description = "Skewed Right Binary Tree",
+      expected = "1 -> 2 -> 3 -> 4"
+    },
+    {
+      values = {5, 4, 3, 2, 1},
+      description = "Skewed Left Binary Tree",
+      expected = "5 -> 4 -> 3 -> 2 -> 1"
+    }
+  }
+  
+  for i, testCase in ipairs(testCases) do
+    local tree = BinaryTree.new()
+    for _ , value in ipairs(testCase.values) do
+      tree:insert(value)
+    end
+    
+    print("Test Case " .. i .. ": " .. testCase.description)
+    local result = table.concat(tree:bfsTraverse(), " -> ")
+    print("Elements in BFS order are:\n" .. result .. "\n")
+    
+    if result == testCase.expected then
+      print("Test PASSED\n")
+    else
+      print("Test FAILED\n")
+    end
+  end
+end
+
+testBFS()

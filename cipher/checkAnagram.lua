@@ -1,5 +1,11 @@
--- Function to calculate character frequency in a string
-function calculate_frequency(str)
+local AnagramChecker = {}
+AnagramChecker.__index = AnagramChecker
+
+function AnagramChecker.new()
+    return setmetatable({}, AnagramChecker)
+end
+
+function AnagramChecker:calculateFrequency(str)
     local freq = {}
     for i = 1, 26 do
         freq[i] = 0
@@ -13,10 +19,9 @@ function calculate_frequency(str)
     return freq
 end
 
--- Function to check if two strings are anagrams
-function check_anagram(a, b)
-    local freqA = calculate_frequency(a)
-    local freqB = calculate_frequency(b)
+function AnagramChecker:check(a, b)
+    local freqA = self:calculateFrequency(a)
+    local freqB = self:calculateFrequency(b)
 
     for i = 1, 26 do
         if freqA[i] ~= freqB[i] then
@@ -27,9 +32,9 @@ function check_anagram(a, b)
     return true
 end
 
--- Function to run tests and display results
-function test_check_anagram()
-    local test_cases = {
+local function testCheckAnagram()
+    local anagramChecker = AnagramChecker.new()
+    local testCases = {
         {a = "listen", b = "silent", expected = true},
         {a = "hello", b = "world", expected = false},
         {a = "cinema", b = "iceman", expected = true},
@@ -40,15 +45,15 @@ function test_check_anagram()
         {a = "", b = "", expected = true},  -- Empty strings are anagrams
     }
 
-    for i, test_case in ipairs(test_cases) do
-        local result = check_anagram(test_case.a, test_case.b)
-        local status = result == test_case.expected and "PASSED" or "FAILED"
+    for i, testCase in ipairs(testCases) do
+        local result = anagramChecker:check(testCase.a, testCase.b)
+        local status = result == testCase.expected and "PASSED" or "FAILED"
         print(string.format("Test Case %d: %s", i, status))
-        print(string.format("  Input: '%s' and '%s'", test_case.a, test_case.b))
-        print(string.format("  Expected: %s", test_case.expected))
+        print(string.format("  Input: '%s' and '%s'", testCase.a, testCase.b))
+        print(string.format("  Expected: %s", testCase.expected))
         print(string.format("  Result: %s\n", result))
     end
 end
 
 -- Run the tests
-test_check_anagram()
+testCheckAnagram()
