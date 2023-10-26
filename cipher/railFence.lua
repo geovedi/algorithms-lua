@@ -82,27 +82,27 @@ end
 
 -- Function to test the Rail Fence cipher
 function tests()
-    local testCases = {
+    local test_cases = {
         {text = "Hello World!", key = 2},
         {text = "OpenAI is amazing!", key = 3},
         {text = "Lua is fun!", key = 4},
         {text = "Rail Fence Cipher", key = 5},
     }
 
-    for i, testCase in ipairs(testCases) do
-        local text = testCase.text
-        local key = testCase.key
+    for i, test_case in ipairs(test_cases) do
+        local text = test_case.text
+        local key = test_case.key
 
-        local encryptedText = encryptRailFence(text, key)
-        local decryptedText = decryptRailFence(encryptedText, key)
+        local encrypted_text = encryptRailFence(text, key)
+        local decrypted_text = decryptRailFence(encrypted_text, key)
 
         print("Test Case " .. i .. ":")
         print("  Original Text: " .. text)
         print("  Key: " .. key)
-        print("  Encrypted Text: " .. encryptedText)
-        print("  Decrypted Text: " .. decryptedText)
+        print("  Encrypted Text: " .. encrypted_text)
+        print("  Decrypted Text: " .. decrypted_text)
 
-        local success = text == decryptedText
+        local success = text == decrypted_text
 
         if success then
             print("  Result: PASSED\n")

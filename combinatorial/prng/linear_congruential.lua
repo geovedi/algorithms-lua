@@ -8,7 +8,7 @@ function linear_congruential_generator(seed, a, c, m)
 end
 
 -- Test function
-function test_linear_congruential_generator()
+function tests()
     local test_cases = {
         {
             seed = 1,
@@ -63,4 +63,4 @@ function test_linear_congruential_generator()
 end
 
 -- Run tests
-test_linear_congruential_generator()
+tests()

@@ -29,7 +29,7 @@ end
 
 -- Function to run tests and display results
 function tests()
-    local testCases = {
+    local test_cases = {
         {a = "listen", b = "silent", expected = true},
         {a = "hello", b = "world", expected = false},
         {a = "cinema", b = "iceman", expected = true},
@@ -40,12 +40,12 @@ function tests()
         {a = "", b = "", expected = true},  -- Empty strings are anagrams
     }
 
-    for i, testCase in ipairs(testCases) do
-        local result = checkAnagram(testCase.a, testCase.b)
-        local status = result == testCase.expected and "PASSED" or "FAILED"
+    for i, test_case in ipairs(test_cases) do
+        local result = checkAnagram(test_case.a, test_case.b)
+        local status = result == test_case.expected and "PASSED" or "FAILED"
         print(string.format("Test Case %d: %s", i, status))
-        print(string.format("  Input: '%s' and '%s'", testCase.a, testCase.b))
-        print(string.format("  Expected: %s", testCase.expected))
+        print(string.format("  Input: '%s' and '%s'", test_case.a, test_case.b))
+        print(string.format("  Expected: %s", test_case.expected))
         print(string.format("  Result: %s\n", result))
     end
 end

@@ -33,29 +33,29 @@ end
 
 -- Function to test the Caesar cipher
 function tests()
-    local testCases = {
+    local test_cases = {
         {key = 1, text = "Hello World!", encrypted = "Ifmmp Xpsme!", decrypted = "Hello World!"},
         {key = 3, text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", encrypted = "DEFGHIJKLMNOPQRSTUVWXYZABC", decrypted = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"},
         {key = 5, text = "The Quick Brown Fox", encrypted = "Ymj Vznhp Gwtbs Ktc", decrypted = "The Quick Brown Fox"},
         {key = 13, text = "Caesar Cipher", encrypted = "Pnrfne Pvcure", decrypted = "Caesar Cipher"},
     }
 
-    for i, testCase in ipairs(testCases) do
-        local key = testCase.key
-        local text = testCase.text
-        local encryptedText = caesarCipher(key, text, 'e')
-        local decryptedText = caesarCipher(key, encryptedText, 'd')
+    for i, test_case in ipairs(test_cases) do
+        local key = test_case.key
+        local text = test_case.text
+        local encrypted_text = caesarCipher(key, text, 'e')
+        local decrypted_text = caesarCipher(key, encrypted_text, 'd')
 
         print("Test Case " .. i .. ":")
         print("  Key: " .. key)
         print("  Original Text: " .. text)
-        print("  Encrypted Text: " .. encryptedText)
-        print("  Decrypted Text: " .. decryptedText)
+        print("  Encrypted Text: " .. encrypted_text)
+        print("  Decrypted Text: " .. decrypted_text)
 
-        local encryptionSuccess = encryptedText == testCase.encrypted
-        local decryptionSuccess = decryptedText == testCase.decrypted
+        local encryption_success = encrypted_text == test_case.encrypted
+        local decryption_success = decrypted_text == test_case.decrypted
 
-        if encryptionSuccess and decryptionSuccess then
+        if encryption_success and decryption_success then
             print("  Result: PASSED\n")
         else
             print("  Result: FAILED\n")

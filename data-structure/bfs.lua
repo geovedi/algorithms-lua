@@ -109,16 +109,16 @@ local function tests()
         right = nil
     }
 
-    local testCases = {
+    local test_cases = {
         {tree = balancedTree, description = "Balanced Binary Tree", expected = "5 -> 3 -> 1 -> 4 -> 8 -> 7 -> 9"},
         {tree = skewedRightTree, description = "Skewed Right Binary Tree", expected = "1 -> 2 -> 3 -> 4"},
         {tree = skewedLeftTree, description = "Skewed Left Binary Tree", expected = "5 -> 4 -> 3 -> 2 -> 1"}
     }
 
-    for i, testCase in ipairs(testCases) do
-        local tree = testCase.tree
-        local description = testCase.description
-        local expected = testCase.expected
+    for i, test_case in ipairs(test_cases) do
+        local tree = test_case.tree
+        local description = test_case.description
+        local expected = test_case.expected
 
         local queue = {}
 
