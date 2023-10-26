@@ -120,7 +120,7 @@ function BinaryTree:countNodes()
 end
 
 -- Function to create a binary tree and perform operations
-local function createAndTestBinaryTree()
+local function tests()
     local tree = BinaryTree.new()
 
     -- Define test cases with input values and expected results
@@ -178,5 +178,5 @@ local function createAndTestBinaryTree()
 end
 
 -- Run the binary tree creation and test
-createAndTestBinaryTree()
+tests()
 

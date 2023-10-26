@@ -28,7 +28,7 @@ function checkAnagram(a, b)
 end
 
 -- Function to run tests and display results
-function runTests()
+function tests()
     local testCases = {
         {a = "listen", b = "silent", expected = true},
         {a = "hello", b = "world", expected = false},
@@ -51,4 +51,4 @@ function runTests()
 end
 
 -- Run the tests
-runTests()
+tests()

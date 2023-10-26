@@ -35,7 +35,7 @@ local function bfs_traverse(root, queue)
 end
 
 -- Function to create a binary tree with predefined values and test BFS traversal
-local function testBinaryTree()
+local function tests()
     -- Test Case 1: Balanced Binary Tree
     local balancedTree = {
         value = 5,
@@ -140,4 +140,4 @@ local function testBinaryTree()
 end
 
 -- Run the binary tree tests
-testBinaryTree()
+tests()
