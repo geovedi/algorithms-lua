@@ -32,7 +32,7 @@ function caesar(key, text, operation)
 end
 
 -- Function to test the Caesar cipher
-function tests()
+function test_caesar()
     local test_cases = {
         {key = 1, text = "Hello World!", encrypted = "Ifmmp Xpsme!", decrypted = "Hello World!"},
         {key = 3, text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", encrypted = "DEFGHIJKLMNOPQRSTUVWXYZABC", decrypted = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"},
@@ -64,4 +64,4 @@ function tests()
 end
 
 -- Run the Caesar cipher tests
-tests()
+test_caesar()

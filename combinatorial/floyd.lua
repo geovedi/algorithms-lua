@@ -24,7 +24,7 @@ local function floyd(f, x0)
     return lam, mu
 end
 
-local function tests()
+local function test_floyd()
     local function test1(x) return (x * x + 1) % 255 end
     local function test2(x) return (x * x + 1) % 254 end
     local function test3(x) return (x * x + 2) % 255 end
@@ -45,4 +45,4 @@ local function tests()
     print(lam3 == expected_lambda_3 and mu3 == expected_mu_3 and "Test 3: PASSED" or "Test 3: FAILED")
 end
 
-tests()
+test_floyd()

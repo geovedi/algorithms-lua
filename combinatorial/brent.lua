@@ -51,7 +51,7 @@ function brent:find_root()
     return nil, self.max_iter -- Root not found within max iterations
 end
 
-local function tests()
+local function test_brent()
     local f1 = function(x) return x^3 + 4*x^2 - 10 end
     local algo1 = brent.new(f1, 1, 2, 1e-6, 100)
     local root1, iter1 = algo1:find_root()
@@ -86,6 +86,6 @@ local function tests()
     end
 end
 
-tests()
+test_brent()
 
 

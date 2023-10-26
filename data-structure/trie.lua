@@ -46,7 +46,7 @@ function Trie:search(word)
 end
 
 -- Test function for Trie
-function tests()
+function test_trie()
     print("Running Trie Tests:")
     
     -- Test Case 1: Insert and search for words
@@ -87,4 +87,4 @@ function tests()
 end
 
 -- Run the Trie tests
-tests()
+test_trie()

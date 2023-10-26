@@ -8,7 +8,7 @@ function acorn(seed, a, c, m)
 end
 
 -- Test function
-function tests()
+function test_acorn()
     local test_cases = {
         {seed = 1, a = 2, c = 3, m = 5, expected = {0.0, 0.6, 0.8, 0.2, 0.0}},
         {seed = 0, a = 2, c = 3, m = 7, expected = {0.42857, 0.28571, 0.0, 0.42857, 0.28571}},
@@ -32,4 +32,4 @@ function tests()
 end
 
 -- Run tests
-tests()
+test_acorn()

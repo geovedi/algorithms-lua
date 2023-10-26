@@ -1,5 +1,5 @@
 -- Linear Congruential Generator implementation
-function linear_congruential_generator(seed, a, c, m)
+function linear_congruential(seed, a, c, m)
     local state = seed
     return function()
         state = (a * state + c) % m
@@ -8,7 +8,7 @@ function linear_congruential_generator(seed, a, c, m)
 end
 
 -- Test function
-function tests()
+function test_linear_congruential()
     local test_cases = {
         {
             seed = 1,
@@ -49,7 +49,7 @@ function tests()
 
     
     for i, test_case in ipairs(test_cases) do
-        local generator = linear_congruential_generator(test_case.seed, test_case.a, test_case.c, test_case.m)
+        local generator = linear_congruential(test_case.seed, test_case.a, test_case.c, test_case.m)
         local passed = true
         for j, expected_value in ipairs(test_case.expected) do
             local value = generator()
@@ -63,4 +63,4 @@ function tests()
 end
 
 -- Run tests
-tests()
+test_linear_congruential()

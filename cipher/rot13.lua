@@ -17,7 +17,7 @@ function rot13(s)
 end
 
 -- Self-test implementations
-function tests()
+function test_rot13()
     local test_01 = "The more I C, the less I see."
     assert(rot13(test_01) == "Gur zber V P, gur yrff V frr.")
 
@@ -30,4 +30,4 @@ function tests()
     print("All tests have successfully passed!")
 end
 
-tests()
+test_rot13()

@@ -15,7 +15,7 @@ function lagged_fibonacci(s, j, k, m)
 end
 
 -- Test function
-function tests()
+function test_lagged_fibonacci()
     local test_cases = {
         {
             s = {1, 2, 3, 4, 5},
@@ -70,4 +70,4 @@ function tests()
 end
 
 -- Run tests
-tests()
+test_lagged_fibonacci()

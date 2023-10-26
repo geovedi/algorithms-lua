@@ -86,7 +86,7 @@ end
 
 
 -- Test multiple strings
-local function tests()
+local function test_affine()
     local function test_string(plaintext, expected_ciphertext, a, b)
         local ciphertext = affine_encrypt(plaintext, a, b)
         assert(ciphertext == expected_ciphertext, "Encryption failed for '" .. plaintext .. "'")
@@ -106,4 +106,4 @@ local function tests()
 end
 
 -- Run the tests
-tests()
+test_affine()

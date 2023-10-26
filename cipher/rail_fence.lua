@@ -81,7 +81,7 @@ function decrypt_rail_fence(cipher, key)
 end
 
 -- Function to test the Rail Fence cipher
-function tests()
+function test_rail_fence()
     local test_cases = {
         {text = "Hello World!", key = 2},
         {text = "OpenAI is amazing!", key = 3},
@@ -113,4 +113,4 @@ function tests()
 end
 
 -- Run the Rail Fence cipher tests
-tests()
+test_rail_fence()

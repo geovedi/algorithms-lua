@@ -39,7 +39,7 @@ function vector.foreach(v, callback)
 end
 
 -- Test function
-function tests()
+function test_vector()
     print("Running Vector Tests:")
     
     -- Test Case 1: Creating and adding elements
@@ -83,4 +83,4 @@ function tests()
 end
 
 -- Run the vector tests
-tests()
+test_vector()

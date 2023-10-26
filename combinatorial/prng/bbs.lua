@@ -10,7 +10,7 @@ function bbs(seed, p, q)
 end
 
 -- Test function
-function tests()
+function test_bbs()
     local test_cases = {
         {seed = 7, p = 11, q = 19, expected = {7*7 % (11*19), (7*7 % (11*19))^2 % (11*19), ((7*7 % (11*19))^2 % (11*19))^2 % (11*19)}},
         {seed = 3, p = 13, q = 23, expected = {3*3 % (13*23), (3*3 % (13*23))^2 % (13*23), ((3*3 % (13*23))^2 % (13*23))^2 % (13*23)}},
@@ -34,4 +34,4 @@ function tests()
 end
 
 -- Run tests
-tests()
+test_bbs()

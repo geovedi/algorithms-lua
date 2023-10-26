@@ -28,7 +28,7 @@ function check_anagram(a, b)
 end
 
 -- Function to run tests and display results
-function tests()
+function test_check_anagram()
     local test_cases = {
         {a = "listen", b = "silent", expected = true},
         {a = "hello", b = "world", expected = false},
@@ -51,4 +51,4 @@ function tests()
 end
 
 -- Run the tests
-tests()
+test_check_anagram()

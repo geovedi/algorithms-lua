@@ -44,7 +44,8 @@ local function gale_shapley(men, women)
     return engaged_men
 end
 
-local function tests()
+
+local function test_gale_shapley()
     local test_cases = {
         {
             men = {
@@ -110,4 +111,4 @@ local function tests()
     end
 end
 
-tests()
+test_gale_shapley()
