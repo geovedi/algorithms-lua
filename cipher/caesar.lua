@@ -1,5 +1,5 @@
 -- Function to apply the Caesar cipher
-function caesarCipher(key, text, operation)
+function caesar(key, text, operation)
     local offset = string.byte('A')
     local alphabetSize = 26
     local result = {}
@@ -43,8 +43,8 @@ function tests()
     for i, test_case in ipairs(test_cases) do
         local key = test_case.key
         local text = test_case.text
-        local encrypted_text = caesarCipher(key, text, 'e')
-        local decrypted_text = caesarCipher(key, encrypted_text, 'd')
+        local encrypted_text = caesar(key, text, 'e')
+        local decrypted_text = caesar(key, encrypted_text, 'd')
 
         print("Test Case " .. i .. ":")
         print("  Key: " .. key)

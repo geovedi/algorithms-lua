@@ -1,5 +1,5 @@
 -- Function to calculate character frequency in a string
-function calculateFrequency(str)
+function calculate_frequency(str)
     local freq = {}
     for i = 1, 26 do
         freq[i] = 0
@@ -14,9 +14,9 @@ function calculateFrequency(str)
 end
 
 -- Function to check if two strings are anagrams
-function checkAnagram(a, b)
-    local freqA = calculateFrequency(a)
-    local freqB = calculateFrequency(b)
+function check_anagram(a, b)
+    local freqA = calculate_frequency(a)
+    local freqB = calculate_frequency(b)
 
     for i = 1, 26 do
         if freqA[i] ~= freqB[i] then
@@ -41,7 +41,7 @@ function tests()
     }
 
     for i, test_case in ipairs(test_cases) do
-        local result = checkAnagram(test_case.a, test_case.b)
+        local result = check_anagram(test_case.a, test_case.b)
         local status = result == test_case.expected and "PASSED" or "FAILED"
         print(string.format("Test Case %d: %s", i, status))
         print(string.format("  Input: '%s' and '%s'", test_case.a, test_case.b))

@@ -1,5 +1,5 @@
 -- Function to create the rail matrix
-function createRailMatrix(text, key)
+function create_rail_matrix(text, key)
     local rail = {}
     for i = 1, key do
         rail[i] = {}
@@ -28,8 +28,8 @@ function createRailMatrix(text, key)
 end
 
 -- Function to encrypt a message using Rail Fence cipher
-function encryptRailFence(text, key)
-    local rail = createRailMatrix(text, key)
+function encrypt_rail_fence(text, key)
+    local rail = create_rail_matrix(text, key)
     local result = ""
 
     for i = 1, key do
@@ -44,8 +44,8 @@ function encryptRailFence(text, key)
 end
 
 -- Function to decrypt a message encrypted with Rail Fence cipher
-function decryptRailFence(cipher, key)
-    local rail = createRailMatrix(cipher, key)
+function decrypt_rail_fence(cipher, key)
+    local rail = create_rail_matrix(cipher, key)
     local result = ""
     local index = 1
 
@@ -93,8 +93,8 @@ function tests()
         local text = test_case.text
         local key = test_case.key
 
-        local encrypted_text = encryptRailFence(text, key)
-        local decrypted_text = decryptRailFence(encrypted_text, key)
+        local encrypted_text = encrypt_rail_fence(text, key)
+        local decrypted_text = decrypt_rail_fence(encrypted_text, key)
 
         print("Test Case " .. i .. ":")
         print("  Original Text: " .. text)
